@@ -9,8 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Player {
-    private String name;
-    private int lives;
-    private int[] scores;
+public class Card {
+    private Suits suit;
+    private Ranks rank;
+    private int value;
 }
