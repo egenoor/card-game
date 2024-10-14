@@ -4,15 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class CardDeck {
+@Service
+public class CardDeckService {
     private static final int MAX_CARD_VALUE = 10;
     private List<Card> cardDeck = new ArrayList<>();
 
@@ -24,5 +27,11 @@ public class CardDeck {
                 cardDeck.add(card);
             }
         }
+    }
+
+    public Card drawCard () {
+        Random rand = new Random();
+        int cardIndex = this.cardDeck.get(rand.nextInt(cardDeck.size())).getValue();
+        return this.cardDeck.get(cardIndex);
     }
 }

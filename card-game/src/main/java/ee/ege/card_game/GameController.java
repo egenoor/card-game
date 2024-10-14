@@ -1,19 +1,40 @@
 package ee.ege.card_game;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class GameController {
+    @Autowired
+    CardDeckService cardDeckService;
+
+    @Autowired
+    GameService gameService;
+
+
 
     @GetMapping("/new-game")
-    public List<Card> newGame() {
-        CardDeck cardDeck = new CardDeck();
-        cardDeck.init();
-        return cardDeck.getCardDeck();
+    @ResponseBody
+    public NewGameResponse newGame(@RequestParam String name) {
+        gameService.startNewGame(name);
+        cardDeckService.init();
+        Card drawnBaseCard = cardDeckService.drawCard();
+        gameService.setBaseCard(drawnBaseCard);
+        return new NewGameResponse(drawnBaseCard, gameService.getPlayer());
+    }
+
+    @GetMapping("/new-round")
+    public Card drawNextCard() {
+        cardDeckService.init();
+        return cardDeckService.drawCard();
+    }
+
+    @GetMapping("/compare-cards")
+    @ResponseBody
+    public CompareCardsResponse compareCards(@RequestParam String playerChoice) throws Exception {
+        Card newBaseCard = cardDeckService.drawCard();
+        gameService.compareCards(newBaseCard, playerChoice);
+        return new CompareCardsResponse(gameService.getPlayer(), gameService.getBaseCard());
     }
 }

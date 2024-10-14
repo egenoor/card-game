@@ -1,0 +1,17 @@
+.game {
+  display: flex;
+  justify-content: center;
+
+  .card {
+    padding: 10px;
+    outline: 1px solid black;
+    border-radius: 5px;
+    min-width: 250px;
+    min-height: 400px;
+
+    .rank-line {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
