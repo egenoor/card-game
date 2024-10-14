@@ -1,5 +1,7 @@
-package ee.ege.card_game;
+package ee.ege.card_game.classes;
 
+import ee.ege.card_game.enums.Ranks;
+import ee.ege.card_game.enums.Suits;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package ee.ege.card_game;
+package ee.ege.card_game.classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

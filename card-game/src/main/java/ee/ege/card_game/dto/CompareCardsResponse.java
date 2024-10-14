@@ -1,5 +1,7 @@
-package ee.ege.card_game;
+package ee.ege.card_game.dto;
 
+import ee.ege.card_game.classes.Card;
+import ee.ege.card_game.classes.Player;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

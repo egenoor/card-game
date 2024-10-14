@@ -1,4 +1,4 @@
-package ee.ege.card_game;
+package ee.ege.card_game.enums;
 
 public enum Ranks {
     TWO,

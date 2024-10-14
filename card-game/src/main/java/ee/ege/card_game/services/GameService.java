@@ -1,8 +1,10 @@
-package ee.ege.card_game;
+package ee.ege.card_game.services;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import ee.ege.card_game.classes.Card;
+import ee.ege.card_game.classes.Player;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

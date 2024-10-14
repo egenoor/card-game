@@ -1,5 +1,10 @@
-package ee.ege.card_game;
+package ee.ege.card_game.controllers;
 
+import ee.ege.card_game.classes.Card;
+import ee.ege.card_game.dto.CompareCardsResponse;
+import ee.ege.card_game.dto.NewGameResponse;
+import ee.ege.card_game.services.CardDeckService;
+import ee.ege.card_game.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
