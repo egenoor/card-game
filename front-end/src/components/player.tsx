@@ -1,21 +1,20 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useAppSelector } from "../store/hooks";
 import "./player.css";
 
-interface PlayerProps {
-  name?: string;
-  lives: number;
-}
+function Player() {
+  const playerInfo = useAppSelector((state) => state.game.playerInfo);
 
-function Player({ name, lives }: PlayerProps) {
+  console.log(playerInfo);
   const generateLives = () => {
-    return Array.from({ length: lives }, () => (
+    return Array.from({ length: playerInfo.lives }, () => (
       <FavoriteIcon fontSize="large" sx={{ color: "#FF0000" }} />
     ));
   };
 
   return (
     <div className="player-info">
-      <span className="name">{name ?? ""}</span>
+      <span className="name">{playerInfo.name ?? ""}</span>
       {generateLives()}
     </div>
   );

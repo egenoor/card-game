@@ -7,14 +7,12 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
+import { useAppSelector } from "../store/hooks";
 import "./game.css";
-import { ICard } from "./home";
 
-interface GameProps {
-  baseCard: ICard | null;
-}
-
-function Game({ baseCard }: GameProps) {
+function Game() {
+  const { rank, suit, value } = useAppSelector((state) => state.game.baseCard);
+  console.log(value);
   const compareCards = async (value: string) => {
     const { data: newRoundResponse } = await axios.get(
       `http://localhost:8080/compare-cards?playerChoice=${value}`
@@ -29,20 +27,20 @@ function Game({ baseCard }: GameProps) {
           <CardContent>
             <Grid2 container rowSpacing={12} columnSpacing={{ md: 4 }}>
               <Grid2 size={6}>
-                <Typography>{baseCard?.rank}</Typography>
-                <Typography>{baseCard?.suit}</Typography>
+                <Typography>{rank}</Typography>
+                <Typography>{suit}</Typography>
               </Grid2>
               <Grid2 size={6}>
-                <Typography>{baseCard?.rank}</Typography>
-                <Typography>{baseCard?.suit}</Typography>
+                <Typography>{rank}</Typography>
+                <Typography>{suit}</Typography>
               </Grid2>
               <Grid2 size={6}>
-                <Typography>{baseCard?.rank}</Typography>
-                <Typography>{baseCard?.suit}</Typography>
+                <Typography>{rank}</Typography>
+                <Typography>{suit}</Typography>
               </Grid2>
               <Grid2 size={6}>
-                <Typography>{baseCard?.rank}</Typography>
-                <Typography>{baseCard?.suit}</Typography>
+                <Typography>{rank}</Typography>
+                <Typography>{suit}</Typography>
               </Grid2>
             </Grid2>
           </CardContent>
