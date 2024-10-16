@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -34,7 +35,7 @@ public class CardDeckService {
 
     public Card drawCard () {
         Random rand = new Random();
-        int cardIndex = this.cardDeck.get(rand.nextInt(cardDeck.size())).getValue();
+        int cardIndex = rand.nextInt(this.cardDeck.size());
         return this.cardDeck.get(cardIndex);
     }
 }

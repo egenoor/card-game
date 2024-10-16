@@ -39,7 +39,7 @@ public class GameController {
     @ResponseBody
     public CompareCardsResponse compareCards(@RequestParam String playerChoice) throws Exception {
         Card newBaseCard = cardDeckService.drawCard();
-        gameService.compareCards(newBaseCard, playerChoice);
-        return new CompareCardsResponse(gameService.getPlayer(), gameService.getBaseCard());
+        String error = gameService.compareCards(newBaseCard, playerChoice);
+        return new CompareCardsResponse(gameService.getPlayer(), gameService.getBaseCard(), error);
     }
 }

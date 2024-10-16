@@ -12,4 +12,5 @@ import lombok.Setter;
 public class CompareCardsResponse {
     private Player player;
     private Card nextCard;
+    private String errorMsg;
 }

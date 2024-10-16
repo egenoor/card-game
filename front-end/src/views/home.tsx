@@ -17,6 +17,7 @@ function Home() {
 
   return (
     <div>
+      <h1>Hi-Lo card game</h1>
       {startGame ? (
         <>
           <Player />
@@ -36,6 +37,7 @@ function Home() {
               }}
             />
             <Button
+              disabled={playerName === ""}
               onClick={() => {
                 startRound(playerName);
               }}

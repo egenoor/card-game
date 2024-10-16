@@ -1,20 +1,21 @@
+import Clubs from "../assets/Clubs.svg";
+import Diamonds from "../assets/Diamonds.svg";
+import Hearts from "../assets/Hearts.svg";
+import Spades from "../assets/Spades.svg";
+
 interface SuitIconProps {
   suit: string;
 }
 
 function SuitIcon({ suit }: SuitIconProps) {
-  const suits = {
-    SPADES: "Spades",
-    CLUBS: "Clubs",
-    HEARTS: "Hearts",
-    DIAMONDS: "Diamonds",
+  const suits: Record<string, string> = {
+    SPADES: Spades,
+    CLUBS: Clubs,
+    HEARTS: Hearts,
+    DIAMONDS: Diamonds,
   };
 
-  const arrayOfSuits = Array.from(Object.entries(suits)).map(
-    ([key, value]) => ({ [key]: value })
-  );
-  console.log(arrayOfSuits);
-  return <div>{suit}</div>;
+  return <img src={suits[suit]} alt={suit} />;
 }
 
 export default SuitIcon;

@@ -1,53 +1,49 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  Container,
-  Grid2,
-  Typography,
-} from "@mui/material";
-import axios from "axios";
-import { useAppSelector } from "../store/hooks";
+import { Box, Button, Card, Container, Grid2, Typography } from "@mui/material";
+import SuitIcon from "../components/suitIcon";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { newRound } from "../store/slices/gameSlice";
 import "./game.css";
 
 function Game() {
-  const { rank, suit, value } = useAppSelector((state) => state.game.baseCard);
-  console.log(value);
-  const compareCards = async (value: string) => {
-    const { data: newRoundResponse } = await axios.get(
-      `http://localhost:8080/compare-cards?playerChoice=${value}`
-    );
-    console.log(newRoundResponse);
+  const dispatch = useAppDispatch();
+  const { rank, suit } = useAppSelector((state) => state.game.baseCard);
+  const compareCards = async (playerChoice: string) => {
+    await dispatch(newRound(playerChoice));
   };
 
   return (
     <Container className="game">
       <Grid2 size={6}>
-        <Card sx={{ maxWidth: 275, minHeight: 400 }}>
-          <CardContent>
-            <Grid2 container rowSpacing={12} columnSpacing={{ md: 4 }}>
-              <Grid2 size={6}>
-                <Typography>{rank}</Typography>
-                <Typography>{suit}</Typography>
-              </Grid2>
-              <Grid2 size={6}>
-                <Typography>{rank}</Typography>
-                <Typography>{suit}</Typography>
-              </Grid2>
-              <Grid2 size={6}>
-                <Typography>{rank}</Typography>
-                <Typography>{suit}</Typography>
-              </Grid2>
-              <Grid2 size={6}>
-                <Typography>{rank}</Typography>
-                <Typography>{suit}</Typography>
-              </Grid2>
+        <Card sx={{ maxWidth: 200, minHeight: 280, padding: 2 }}>
+          <Grid2 container rowSpacing={12} columnSpacing={{ md: 6 }}>
+            <Grid2 size={6}>
+              <Typography>{rank}</Typography>
+              <SuitIcon suit={suit} />
             </Grid2>
-          </CardContent>
+            <Grid2 size={6}>
+              <Typography>{rank}</Typography>
+              <SuitIcon suit={suit} />
+            </Grid2>
+            <Grid2 size={6}>
+              <Typography>{rank}</Typography>
+              <SuitIcon suit={suit} />
+            </Grid2>
+            <Grid2 size={6}>
+              <Typography>{rank}</Typography>
+              <SuitIcon suit={suit} />
+            </Grid2>
+          </Grid2>
         </Card>
       </Grid2>
       <Grid2 container>
-        <Grid2 size={12}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            padding: 5,
+          }}
+        >
           <Button
             value="higher"
             onClick={(e) => {
@@ -57,8 +53,6 @@ function Game() {
           >
             Higher
           </Button>
-        </Grid2>
-        <Grid2 size={12}>
           <Button
             value="equal"
             onClick={(e) => {
@@ -68,8 +62,6 @@ function Game() {
           >
             Equal
           </Button>
-        </Grid2>
-        <Grid2 size={12}>
           <Button
             value="lower"
             onClick={(e) => {
@@ -79,7 +71,7 @@ function Game() {
           >
             Lower
           </Button>
-        </Grid2>
+        </Box>
       </Grid2>
     </Container>
   );

@@ -1,7 +1,9 @@
 package ee.ege.card_game.services;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import ee.ege.card_game.classes.Card;
 import ee.ege.card_game.classes.Player;
@@ -17,17 +19,15 @@ import org.springframework.stereotype.Service;
 @Setter
 @Service
 public class GameService {
-    private String startTime;
-    private String endTime;
+    private Date startTime;
     private Card baseCard;
     private Card comparingCard;
     private final int MAX_CHOICE_TIME_IN_SECONDS = 10;
+    private String errorMsg;
     private final Player player = new Player();
 
     public void startRound() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        this.startTime = dtf.format(now);
+        this.startTime = new Date();
     }
 
     public void startNewGame(String name) {
@@ -36,8 +36,18 @@ public class GameService {
         this.startRound();
     }
 
-    public void compareCards(Card newBaseCard, String playerChoice) throws Exception {
+    public void checkPlayerHealth() throws Exception{
+        if (this.player.getLives() == 0) {
+            throw new Exception("Game over");
+        }
+    }
 
+    public String compareCards(Card newBaseCard, String playerChoice) throws Exception {
+        String error = "";
+        if (((new Date().getTime() - startTime.getTime()) / 1000) > MAX_CHOICE_TIME_IN_SECONDS) {
+            this.startRound();
+            error = "TIME_OUT";
+        }
         switch (playerChoice) {
             case "higher" -> {
                 if (baseCard.getValue() < newBaseCard.getValue()) {
@@ -65,5 +75,6 @@ public class GameService {
             }
         }
         baseCard = newBaseCard;
+        return error;
     }
 }
