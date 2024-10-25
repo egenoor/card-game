@@ -1,14 +1,22 @@
-import { Button, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid2,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import Player from "../components/player";
-import { useAppDispatch } from "../store/hooks";
+import Rules from "../components/rules";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { createNewGame } from "../store/slices/gameSlice";
 import Game from "./game";
 
 function Home() {
   const dispatch = useAppDispatch();
   const [playerName, setPlayerName] = useState("");
-  const [startGame, setStartGame] = useState<boolean>(false);
+  const playerInfo = useAppSelector((state) => state.game.playerInfo);
 
   const startRound = async (playerName: string) => {
     await dispatch(createNewGame(playerName));
@@ -16,18 +24,25 @@ function Home() {
   };
 
   return (
-    <div>
+    <Container>
       <h1>Hi-Lo card game</h1>
       {startGame ? (
-        <>
+        <Grid2 container rowSpacing={6} columnSpacing={{ md: 12 }}>
+          <Rules />
           <Player />
           <Game />
-        </>
+        </Grid2>
       ) : (
-        <div className="welcome-page">
-          <div>Welcome to Hi-Lo card game</div>
-          <div>Enter name to start playing</div>
-          <div>
+        <Container className="welcome-page">
+          <Typography>Welcome to Hi-Lo card game</Typography>
+          <Typography>Enter name to start playing</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              padding: 5,
+            }}
+          >
             <TextField
               id="outlined-basic"
               label="Player name"
@@ -37,6 +52,7 @@ function Home() {
               }}
             />
             <Button
+              sx={{ marginLeft: "20px" }}
               disabled={playerName === ""}
               onClick={() => {
                 startRound(playerName);
@@ -45,10 +61,10 @@ function Home() {
             >
               Submit
             </Button>
-          </div>
-        </div>
+          </Box>
+        </Container>
       )}
-    </div>
+    </Container>
   );
 }
 

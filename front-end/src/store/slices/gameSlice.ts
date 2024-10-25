@@ -14,7 +14,8 @@ const initialState: GameState = {
     lives: 0,
     score: 0
   },
-  errorMsg: ""
+  errorMsg: "",
+  startGame: false
 }
 
 export const createNewGame = createAsyncThunk('game/createNewGame',
@@ -46,6 +47,7 @@ export const gameSlice = createSlice({
       state.baseCard = action.payload.baseCard;
       state.playerInfo = action.payload.player;
       state.errorMsg = action.payload.errorMsg;
+      state.startGame = true;
     });
     builder.addCase(newRound.fulfilled, (state, action) => {
       state.baseCard = action.payload.nextCard;

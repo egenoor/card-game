@@ -4,8 +4,6 @@ import "./player.css";
 
 function Player() {
   const playerInfo = useAppSelector((state) => state.game.playerInfo);
-
-  console.log(playerInfo);
   const generateLives = () => {
     return Array.from({ length: playerInfo.lives }, () => (
       <FavoriteIcon fontSize="large" sx={{ color: "#FF0000" }} />

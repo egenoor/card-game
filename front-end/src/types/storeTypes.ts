@@ -4,4 +4,5 @@ export interface GameState {
   baseCard: ICard;
   playerInfo: IPlayer;
   errorMsg: string;
+  startGame: boolean;
 }

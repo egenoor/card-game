@@ -1,8 +1,5 @@
 package ee.ege.card_game.services;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import ee.ege.card_game.classes.Card;
@@ -36,10 +33,12 @@ public class GameService {
         this.startRound();
     }
 
-    public void checkPlayerHealth() throws Exception{
+    public long calculateTimePlayed() {
         if (this.player.getLives() == 0) {
-            throw new Exception("Game over");
-        }
+            System.out.println((new Date().getTime() - startTime.getTime()) / 1000);
+            return (new Date().getTime() - startTime.getTime()) / 1000;
+         }
+        return 0;
     }
 
     public String compareCards(Card newBaseCard, String playerChoice) throws Exception {
